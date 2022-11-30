@@ -12,6 +12,12 @@ class Model:
         self.num_steps = num_steps
         self.env = gym.make('cityflow-v0', configPath=config_path, episodeSteps=num_steps)
         self.env.action_space.seed(42)
+    def __init__(self, config_path, num_steps):
+        self.env = gym.make('cityflow-v0', config_path=config_path, episode_steps=num_steps, num_threads=4, seed=42,
+                            data_to_collect=["waitTime", "avgSpeed", "avgQueue"], reward_func="combo",
+                            render_mode=None)
+        self.env.stop_replay()
+        self.env.action_space.seed(42)
 
     def simulate(self):
         self.env.reset()
@@ -25,5 +31,5 @@ class Model:
 
 
 if __name__ == '__main__':
-    test = Model("examples/config.json", 1000)
+    test = Model("examples/default - weighted baseline/config.json", 1000)
     test.simulate()
