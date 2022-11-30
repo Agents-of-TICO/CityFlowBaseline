@@ -15,7 +15,7 @@ class Model:
     def __init__(self, config_path, num_steps):
         self.env = gym.make('cityflow-v0', config_path=config_path, episode_steps=num_steps, num_threads=4, seed=42,
                             data_to_collect=["waitTime", "avgSpeed", "avgQueue"], reward_func="combo",
-                            render_mode=None)
+                            render_mode="file")
         self.env.stop_replay()
         self.env.action_space.seed(42)
 
