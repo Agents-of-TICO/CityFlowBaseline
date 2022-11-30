@@ -9,10 +9,6 @@ import numpy as np
 class Model:
 
     def __init__(self, config_path, num_steps):
-        self.num_steps = num_steps
-        self.env = gym.make('cityflow-v0', configPath=config_path, episodeSteps=num_steps)
-        self.env.action_space.seed(42)
-    def __init__(self, config_path, num_steps):
         self.env = gym.make('cityflow-v0', config_path=config_path, episode_steps=num_steps, num_threads=4, seed=42,
                             data_to_collect=["waitTime", "avgSpeed", "avgQueue"], reward_func="combo",
                             render_mode="file")
@@ -21,6 +17,8 @@ class Model:
 
     def simulate(self):
         self.env.reset()
+        self.env.start_replay()
+        self.env.start_rendering()
         start_time = timeit.default_timer()
         while True:
             observation, reward, done, debug = self.env.step(action=self.env.action_space.sample())
