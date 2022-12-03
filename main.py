@@ -25,6 +25,7 @@ class Model:
             if done:
                 elapsed_time = round(timeit.default_timer() - start_time, 3)
                 print(f"Elapsed Time: {elapsed_time} seconds")
+                self.env.close()
                 break
 
 
